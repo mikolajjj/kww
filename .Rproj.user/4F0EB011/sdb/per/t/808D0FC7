@@ -1,0 +1,16 @@
+{
+    "contents" : "library(shiny)\nlibrary(leaflet)\nlibrary(\"kww\")\n\nui <- bootstrapPage(\n  tags$style(type = \"text/css\", \"html, body {width:100%;height:100%}\"),\n  leafletOutput(\"map\", width = \"100%\", height = \"100%\"),\n  absolutePanel(top = 10, left = \"33%\",\n                sliderInput(\"range\", \"Liczba klubowiczów\", min(kww$ile), max(kww$ile),\n                            value = range(kww$ile), step = 1)\n  )\n)\n\nserver <- function(input, output, session) {\n  filteredData <- reactive({\n    kww[kww$ile >= input$range[1] & kww$ile <= input$range[2],]\n  })\n  \n  \n  output$map <- renderLeaflet({\n    leaflet(kww) %>% \n      addTiles(group = \"OSM (default)\") %>%\n      addProviderTiles(\"Stamen.TonerLite\", group = \"Toner Lite\") %>%\n      addProviderTiles(\"Thunderforest.Outdoors\", group = \"Outdoors\") %>%\n      addLayersControl(baseGroups = c(\"OSM (default)\", \"Toner Lite\", \"Outdoors\"), \n                       options = layersControlOptions(collapsed = FALSE)) %>%\n      addCircleMarkers(~lon, ~lat, stroke = FALSE, color = \"#36B\", radius = 6, fillOpacity = 0.7, \n                       popup = ~dymek) %>%\n      fitBounds(~min(lon), ~min(lat), ~max(lon), ~max(lat)) \n  })\n  \n  # dobre mapy:\n  # CartoDB.Positron\n  # Esri.WorldTopoMap - stylistyka historyczna\n  # HERE.normalDayGreyMobile\n  \n  \n  observe({\n    leafletProxy(\"map\", data = kww) #%>%\n      #clearShapes() %>%\n      #addCircles(radius = 10, weight = 20, color = \"#ff0000\", popup = ~paste(place, (ile)))\n  })\n}\n\nshinyApp(ui, server)\n",
+    "created" : 1440586083795.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "4291099577",
+    "id" : "808D0FC7",
+    "lastKnownWriteTime" : 1440586100,
+    "path" : "E:/shinyapps/Shiny/KWW/dotted/app.R",
+    "project_path" : null,
+    "properties" : {
+    },
+    "source_on_save" : false,
+    "type" : "r_source"
+}

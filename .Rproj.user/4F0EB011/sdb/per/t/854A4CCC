@@ -1,0 +1,17 @@
+{
+    "contents" : "load(\"E:\\\\shinyapps\\\\Shiny\\\\KWW\\\\kww\\\\data\\\\kww.rda\") #w windowsie \\\\\nkww\n\nlibrary(testthat)\nlibrary(roxygen2)\ndevtools::check()\ndevtools::document()\ndevtools::build()\ndevtools::install()\n\nlibrary(\"stringi\")\nstri_enc_isutf8(kww$dymek)\n",
+    "created" : 1440585725739.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "3839072726",
+    "id" : "854A4CCC",
+    "lastKnownWriteTime" : 1440586562,
+    "path" : "E:/shinyapps/Shiny/KWW/komendy pakiet.R",
+    "project_path" : null,
+    "properties" : {
+        "tempName" : "Untitled1"
+    },
+    "source_on_save" : false,
+    "type" : "r_source"
+}
